@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "file-catch": {
+      "commandName": "Project",
+      "commandLineArgs": "--dump"
+    }
+  }
+}

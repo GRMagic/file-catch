@@ -50,7 +50,16 @@ void Catch(object sender, FileSystemEventArgs e)
     jsonOptions.Converters.Add(new JsonStringEnumConverter());
     Console.WriteLine(JsonSerializer.Serialize(e, e.GetType(), jsonOptions));
     if(dump && e.ChangeType != WatcherChangeTypes.Deleted)
-        Console.WriteLine("--- Dump Start ---\n" + File.ReadAllText(e.FullPath) + "\n--- Dump End ---");
+    {
+        try
+        {
+            Console.WriteLine("--- Dump Start ---\n" + File.ReadAllText(e.FullPath) + "\n--- Dump End ---");
+        }
+        catch(IOException ex)
+        {
+            Console.WriteLine("--- Dump Error ---\n" + ex.Message + "\n--- Dump End ---");
+        }
+    }
 }
 
 static void OnError(object sender, ErrorEventArgs e) =>  PrintException(e.GetException());
